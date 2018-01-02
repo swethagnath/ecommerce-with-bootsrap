@@ -1,0 +1,20 @@
+<%if @address.errors.any?%>
+	<ol>
+		<%@address.errors.full_messages.each do |msg|%>
+			<li><%= msg%></li>
+		<%end%>
+	</ol>
+<%end%>
+<%=form_for @address do |f|%>
+	<label>name</label><br>
+	<%=f.text_field :name%><br>
+	<label>pincode</label><br>
+	<%=f.text_field :pincode%><br>
+	<label>street</label><br>
+	<%= f.text_field :street%><br>
+	<label>landmark</label><br>
+	<%= f.text_field :landmark%><br>
+	<label>city</label><br>
+	<%= f.text_field :city%><br>
+	<%= f.submit%>
+<%end%>

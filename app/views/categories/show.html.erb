@@ -1,0 +1,24 @@
+<h1>categories </h1>
+
+<%= @category.name%><br/>
+<%if (user_signed_in?)&&(can? :update,@category)%>
+<%= link_to "edit", edit_category_path(@category.id)%> | 
+<%if (user_signed_in?)&&(can? :destroy,@category)%>
+<%= link_to "delete",category_path(@category.id),method: :delete,data:{confirm:"are you sure you want to delete this #{@category.name}"}%>
+<%end%>
+<%end%>
+<h2>listing of products</h2>
+<ol>	
+		<%if @category.products.empty?%>
+			<h1>product not found</h1>
+			<%=link_to "add product", new_product_path%>
+		<%else%>
+			<% @category.products.each do |product|%>
+				<li>
+				<%= link_to product.name,product_path(product.id)%> 
+				<%= product.price%> <%= product.description%>
+				<%= product.stock%>
+				</li>
+			<%end%>
+		<%end%>	
+</ol>

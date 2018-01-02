@@ -1,0 +1,28 @@
+<h1> the list of the products</h1> 
+<% if @products.empty?%>
+	<p>product not found</p>
+<%else%>
+	<ol>
+	<% @products.each do |product| %>
+		<li> 
+		  <%=link_to product.name, product_path(product.id)%>-
+		 INR - <%=product.price%> -
+		 <%= product.description%>-
+		 <%= product.category.name%>
+		 <%= form_for @cart_line_item do |f|%>
+		 	<%= f.hidden_field :product_id,value:product.id%>
+		 	<%= f.hidden_field :quantity,value:1%>
+		 	<%= f.submit "add"%>
+		 <%end%>
+		</li>
+	<% end %>
+	</ol>
+<%end%>
+<%if (user_signed_in?)&& (can? :create,Product.new)%>
+	<%= link_to "add products",new_product_path%>
+<%end%>
+<ol>
+	
+</ol>
+
+

@@ -1,0 +1,32 @@
+<h1>hello world</h1>
+<a href="/say/goodbye">vist goodbye page</a>|
+<a href ="http://www.google.com" target=_blank>google</a>
+
+
+<h3>listing fruits(8)</h3>
+<!-- unodered list -->
+<ul>
+	<li>Mango</li>
+	<li>Pineaaple</li>
+	<li>Apple</li>
+	<li>Watermelon</li>
+	<li>Papaya</li>
+	<li>Kiwi</li>
+	<li>Oranges</li>
+	<li>Grapes</li>
+</ul>
+ <%fruits = ["mango","pineapple","apple","watermelon","papaya","pear","kiwi","banana","orange","grapes","guava"] %> <!-- evaluation tag-->
+<h3>listing fruts(<%= fruits.length %><!--presentation tag-->)</h3>
+
+
+<%if fruits.empty?%>
+	<h1>not found array is empty </h1>
+<% else %>
+	<ol>
+		<%fruits.sort.each do |fruit| %>
+			<li><%= fruit.capitalize%></li>
+		<% end %>
+	</ol>
+<% end %>
+
+

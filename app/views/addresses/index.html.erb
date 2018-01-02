@@ -1,0 +1,6 @@
+<h1>list all</h1>
+<ol>
+<%current_user.addresses.each do|address|%>
+	<li><%= address.name%><%= address.pincode%><%= address.street%><%=address.landmark %><%= address.city%></li>
+<%end%>
+</ol>

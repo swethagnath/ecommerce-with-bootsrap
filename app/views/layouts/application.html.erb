@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ecommerce</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+      <%if user_signed_in?%>
+        welcome  <%= current_user.username%>|
+         <%= link_to "your cart(#{current_user.cart_line_items.pluck(:quantity).inject(:+)})",cart_line_items_path%>|
+        <%=link_to "Account_setting",edit_user_registration_path%>|<%= link_to "wishlist(#{current_user.wishlists.count})",wishlists_path%> |
+        <%=link_to "logout",destroy_user_session_path,method: :delete%>|
+         <%= link_to "address",addresses_path%>|
+         <%= link_to "Reviews",reviews_path%>|
+      <%else%>
+        <%= link_to "Register",new_user_registration_path%> |
+        <%= link_to "login",new_user_session_path%>
+      <%end%>
+    	<%= link_to "Categories",categories_path %> |
+    	<%= link_to "Products",products_path %>|
+      <%= notice %>
+      <%= alert%>
+    	<%= yield %>
+      <%if user_signed_in?%>
+        <p>your current ip address is (<%= current_user.current_sign_in_ip %>)</p>
+      <%end%>
+  </body>
+</html>

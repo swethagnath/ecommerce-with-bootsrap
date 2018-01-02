@@ -1,0 +1,19 @@
+<br>
+<br>
+<br>
+<br>
+<h1>wishlist</h1>
+<table border="1">
+	<thead>
+		<th></th>
+		<th>name</th>
+		<th>image</th>
+	</thead>
+	<%current_user.wishlists.each_with_index do |wishlist,index|%>
+		<tr>
+			<td><%= index+1 %></td>
+			<td><%= wishlist.product.name%></td>
+			<td><%= image_tag(wishlist.product.feature_image_url,size:"90x60")%></td>
+		</tr>
+	<%end%>
+</table>

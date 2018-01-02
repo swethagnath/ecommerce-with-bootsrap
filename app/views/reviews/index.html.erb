@@ -1,0 +1,22 @@
+<br>
+<h1>listing of reviews.....</h1>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>product name</th>
+				<th>review</th>
+				<th>created at</th>
+			</tr>			
+		</thead>
+		<tbody>
+			
+			<%current_user.reviews.each do |review|%>	
+				<tr>			
+					<td><%= review.product.name%></td>
+					<td><%=review.body%></td>
+					<td><%= review.created_at%></td>
+				</tr>
+			<%end%>
+			
+		</tbody>
+	</table>

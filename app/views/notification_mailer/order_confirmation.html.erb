@@ -1,0 +1,18 @@
+<p>heloo <%= @order.user.username%>
+
+your order has successfully placed.total of the order is <%= @order.total%><br/></p>
+
+<h2>order summary</h2>
+
+<h2><%= @order.order_number%></h2>
+		<p><%@order.order_date%></p>
+		INR <%=@order.total%>
+		<ol>
+			<%@order.order_line_items.each do |line_item|%>
+				<li><%= line_item.product.name%>INR<%= line_item.price%><%= line_item.quantity%></li> 
+			<%end%>
+		</ol>
+
+
+		<p>thankyou for shopping us</p>
+		<img src="http://brandmark.io/logo-rank/random/pepsi.png">
