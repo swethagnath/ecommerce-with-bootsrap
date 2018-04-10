@@ -1,0 +1,9 @@
+$('#count').text("<%=current_user.wishlists.count%>");
+<%if @wishlist.new_record?%>
+	submitHandle = document.getElementById('add_to_wishlist');
+	wishlist  = document.getElementById('wishlists');
+	// wishlist.innerHTML = "already added to wishlist";
+	$.growl({ title: "alert", message: "already added to wishlist!" });
+<%else%>	
+	$.growl({ title: "alert", message: "added to the wishlist!" });
+<%end%>

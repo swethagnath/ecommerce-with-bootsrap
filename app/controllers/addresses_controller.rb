@@ -1,6 +1,7 @@
 class AddressesController < ApplicationController
 	def index
 		@addresses = current_user.addresses
+		@address = Address.new
 	end
 	def new
 		@address = Address.new
@@ -8,10 +9,9 @@ class AddressesController < ApplicationController
 	def create
 		 @address = Address.new(address_params)
 		@address.user_id = current_user.id
-		if @address.save
-			redirect_to addresses_path
-		else
-			render action:'new'
+		@address.save
+		respond_to do |format|
+			format.js
 		end
 	end
 	def edit

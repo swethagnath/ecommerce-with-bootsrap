@@ -1,0 +1,2 @@
+class AppKing < ApplicationRecord
+end

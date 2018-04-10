@@ -1,6 +1,56 @@
-<h1>list all</h1>
-<ol>
-<%current_user.addresses.each do|address|%>
-	<li><%= address.name%><%= address.pincode%><%= address.street%><%=address.landmark %><%= address.city%></li>
-<%end%>
-</ol>
+<div class="jumbotron">
+  <h1 class="display-4 text-center">List Of Addresses</h1>
+</div>
+<div class="container">
+	<ul class="list-group">
+		<%current_user.addresses.each do|address|%>
+			<li class="list-group-item"><%= address.name%>-<%= address.pincode%>-<%= address.street%>-<%=address.landmark %>-<%= address.city%></li>
+		<%end%>
+	</ul>
+	<div class="address-add">
+	</div>
+	<button type="button" class="btn btn-success submit-button" data-toggle="modal" data-target="#addressModal">
+	  ADD ADDRESS
+	</button>
+	<!-- Modal -->
+	<div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Create Address</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	       		<%=form_for(@address,remote:true) do |f|%>
+	       			<div class="form-group">
+						<label>name</label><br>
+						<%=f.text_field :name,class:"form-control"%><br>
+					</div>
+					<div class="form-group">
+						<label>pincode</label><br>
+						<%=f.text_field :pincode,class:"form-control"%><br>
+					</div	>
+					<div class="form-group">
+						<label>street</label><br>
+						<%= f.text_field :street,class:"form-control"%><br>
+					</div>
+					<div class="form-group">
+						<label>landmark</label><br>
+						<%= f.text_field :landmark,class:"form-control"%><br>
+					</div>
+					<div class="form-group">
+						<label>city</label><br>
+						<%= f.text_field :city,class:"form-control"%><br>
+					</div>	
+					<div class="modal-footer">
+	        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        		<%= f.submit "Save Changes" ,class:"btn btn-primary",id: :submit_address%>
+	        	<%end%>
+	      </div>				
+	      </div>	            		
+	    </div>
+	  </div>
+	</div>
+</div>

@@ -1,0 +1,68 @@
+ <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+    <a class="navbar-brand" href="#">Ecommerce</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <%=link_to 'Home',products_path,class:"nav-link"%>
+        </li>
+        <%if user_signed_in?%>
+          <li class="nav-item">
+            <%#= current_user.username%>
+          </li>  
+          <li class="nav-item">        
+            <%=link_to cart_line_items_path,class:"nav-link" do%>
+              your cart(<span id="cart-add"><%=current_user.cart_line_items.pluck(:quantity).inject(:+)%></span>)
+            <%end%>
+          </li>
+          <li class="nav-item">
+            <%=link_to "Account_setting",edit_user_registration_path,class:"nav-link"%>         
+          </li>
+          <li class="nav-item">
+            <%= link_to wishlists_path,class:"nav-link" do%>
+              wishlist(<span id="count"><%=current_user.wishlists.count%></span>)
+            <%end%>
+          </li>
+          <li class="nav-item">
+            <%=link_to "logout",destroy_user_session_path,method: :delete,class:"nav-link"%>
+          </li>
+          <li class="nav-item">
+             <%=link_to "address",addresses_path,class:"nav-link"%>
+          </li>
+          <li class="nav-item">
+            <%=link_to "Reviews",reviews_path,class:"nav-link"%>
+          </li>
+        <%else%>
+          <li class="nav-item">
+            <%=link_to "Register",new_user_registration_path,class:"nav-link"%> 
+          </li>      
+          <li class="nav-item">
+            <%=link_to "login",new_user_session_path,class:"nav-link"%>
+          </li>          
+        <%end%>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categories
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%i=0%>
+              <%Category.all.each_with_index do |category,index|%>
+                <a class="dropdown-item text-center"><%=link_to category.name.upcase,category_path(category)%></a>
+                <%if i < Category.count-1%>
+                  <div class="dropdown-divider"></div>
+                <%end%>
+                <%i+=1%>
+              <%end%>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <%if (user_signed_in?) && (can? :create,Product.new)%>
+      <%=link_to "add product",new_product_path%>
+    <%end%>||  
+    <%if (user_signed_in?) && (can? :create,Category.new)%>
+      <%=link_to "add category",new_category_path%>
+    <%end%>
+</nav>

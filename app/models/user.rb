@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  ratyrate_rater
   has_many :orders
   has_many :addresses
   has_many :wishlists

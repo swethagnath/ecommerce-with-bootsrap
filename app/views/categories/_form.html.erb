@@ -1,12 +1,71 @@
-<%=form_for @category do|f|%>
-	<%if @category.errors.any?%>
-		<ol>
-			<%@category.errors.full_messages.each do |msg|%>
-			 	<li><%= msg%></li>
-			<%end%>
-		</ol>
+<div class="container ecommerce-new-styling">
+	<%=form_for @category do|f|%>
+		<%if @category.errors.any?%>
+			<ol>
+				<%@category.errors.full_messages.each do |msg|%>
+				 	<li><%= msg%></li>
+				<%end%>
+			</ol>
+		<%end%>
+		<label for="Category_name">Category Name:</label><br/>
+		<%= f.text_field :name%><span id="categoryErrorHandle"></span><br/>
+		<%=f.submit class:"btn btn-success new-category-button"%>
 	<%end%>
-	<label for="Category_name">category name:</label><br/>
-	<%= f.text_field :name%><br/>
-	<%=f.submit%>
-<%end%>
+</div>
+<script>
+    function formErrors(fieldGroup,fieldStatus){
+		if(fieldStatus){
+			fieldGroup.classList.remove('formError');
+			fieldGroup.classList.add('formSuccess');
+		}else{
+			fieldGroup.classList.remove('formSuccess');
+			fieldGroup.classList.add('formError'); 
+		}
+	}
+	function errorHandleStyling(errorHandle,apply){
+		if(apply === 'apply'){
+			errorHandle.classList.remove("alert-success");
+			errorHandle.classList.add("alert-danger");
+			errorHandle.classList.add("errorMargin");
+		}else{
+			errorHandle.classList.remove("alert-danger");
+			errorHandle.classList.add("alert-success");
+			errorHandle.classList.add("errorMargin");
+		}
+	}
+	function removeError(errorHandle){
+		errorHandle.classList.remove("alert-danger");
+		errorHandle.classList.remove("alert-success");
+		errorHandle.classList.remove("errorMargin");
+		errorHandle.classList.remove('formSuccess');
+		errorHandle.classList.remove('formError'); 
+	}
+    var categoryHandle = document.getElementById('category_name');
+    var categoryErrorHandle = document.getElementById('categoryErrorHandle');
+	function categoryValidation(response){
+		if(categoryHandle.value === ""){
+			categoryErrorHandle.innerHTML = "can't be blank";
+			formErrors(categoryHandle,false);
+			errorHandleStyling(categoryErrorHandle,"apply");
+		}else if(response["error"]){
+			categoryErrorHandle.innerHTML = "can be used";
+			formErrors(categoryHandle,true);
+			errorHandleStyling(categoryErrorHandle,"cannot apply");
+		}else{
+			categoryErrorHandle.innerHTML = "already taken";	
+			formErrors(categoryHandle,false	);
+			errorHandleStyling(categoryErrorHandle,"apply");
+		}
+	}
+	categoryHandle.addEventListener('blur',function(){
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET',`/categories/check_category?category=${categoryHandle.value}`,true);
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4 && xhr.status === 200){
+				var response = JSON.parse(xhr.responseText);
+				categoryValidation(response);
+			}
+		}
+		xhr.send();
+	},false);
+</script>

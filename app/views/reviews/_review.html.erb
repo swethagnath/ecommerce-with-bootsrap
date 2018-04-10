@@ -1,0 +1,11 @@
+<p><%=@review.body%></p>
+  <small class="text-muted">Posted by <%=@review.user.email%> <br> <%=@review.created_at.strftime("%B %e, %Y at %I:%M %p")%></small>
+  <%if (user_signed_in?) && (can? :destroy,@review)%>
+  	<%=link_to "delete",review_path(@review),method: :delete,remote:true%> | <%=link_to "edit",edit_review_path(@review),remote:true%>
+  <%end%>
+
+ 
+
+
+
+

@@ -2,7 +2,6 @@
   <% if coupon.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(coupon.errors.count, "error") %> prohibited this coupon from being saved:</h2>
-
       <ul>
       <% coupon.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,23 +9,31 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
     <%= form.label :code %>
     <%= form.text_field :code, id: :coupon_code %>
   </div>
-
   <div class="field">
     <%= form.label :discount %>
     <%= form.number_field :discount, id: :coupon_discount %>
   </div>
-
   <div class="field">
     <%= form.label :expiry_date %>
-    <%= form.datetime_select :expiry_date, id: :coupon_expiry_date %>
+    <%= form.text_field :expiry_date, id: :coupon_expiry_date %>
   </div>
-
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+<script>
+//window.addEventListener('load',function(){},false);
+  $(document).ready(function(){
+    $( "#coupon_expiry_date" ).datepicker({
+      dateFormat: "yy-mm-dd",
+      changeMonth: true,
+      minDate: 0,
+      maxDate: 30,
+      numberOfMonths: 2
+   });
+  }); 
+</script>

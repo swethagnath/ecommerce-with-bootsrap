@@ -1,0 +1,4 @@
+<%if @product.errors.any?%>	
+<%else%>
+	$.growl({ title: "alert", message: "added to product list!" });
+<%end%>	

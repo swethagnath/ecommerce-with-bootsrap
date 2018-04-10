@@ -1,0 +1,4 @@
+<%if @category.errors.any?%>
+<%else%>
+	$.growl({ title: "alert", message: "added to the category!" });
+<%end%>

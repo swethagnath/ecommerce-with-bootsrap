@@ -1,0 +1,2 @@
+$('#cart-add').text("<%=current_user.cart_line_items.pluck(:quantity).inject(:+)%>");
+$.growl({ title: "alert", message: "added to the cartline!" });

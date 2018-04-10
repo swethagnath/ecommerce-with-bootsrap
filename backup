@@ -1,0 +1,224 @@
+#products show page
+<!-- <h1><%= @product.name%></h1> 
+<p>
+	<%if (user_signed_in?) && (can? :update,@product)%>
+		<%= link_to "edit", edit_product_path(@product.id)%> |
+		<%= link_to "delete",product_path(@product.id),method: :delete,data:{confirm:"are you sure"}%>
+	<%end%>
+</p>
+<p><%= @product.description%></p>
+<p>INR<%= @product.price%></p>
+<%= link_to @product.category.name,category_path(@product.category_id)%>
+<!-- <#%=Category.find(@product.category_id).name%> -->
+<%=link_to "list products",products_path%>
+<%=@product.cod_eligible ? "cod eligible" :"cod not eligible"%>
+<%#s=image_tag(@product.feature_image_url,size:"350*120")%>
+<h2>add to cart</h2>
+<%if user_signed_in?%>
+	<%= form_for CartLineItem.new do |f|%>
+		<label>quantity</label>
+		<%= f.select :quantity,(1..10).to_a%><br>
+		<%= f.hidden_field :product_id,value:@product.id%>
+		<%= f.submit "Add"%>
+	<%end%>
+<%else%>
+	<p>you need to signing before adding products to your carts</p>
+<%end%>
+<%if @product.reviews.empty?%>
+	<p>no reviews found.be the first one</p>
+<%else%>
+	<h3>listing of reviews</h3>
+	<ol id="reviewList">
+		<%@product.reviews.each do |review|%>
+			<li id="review_<%=review.id%>">
+				<%= review.body%> - <%= review.rating%><%= review.user.email%>
+				<%if (user_signed_in?) && (can? :update,review)%>
+					<%=link_to "destroy",review_path(review.id),method: :delete,data:{confirm:"are you sure you want to delete"},remote: true%>
+				<%end%>
+			</li>
+		<%end%>  
+	</ol>
+<%end%>
+<p id="reviewNotice"></p>
+<div id="reviewError"></div>
+<%= form_for(@review,remote: true) do |f|%>
+	<label for="review_body">description</label><br>
+	<%=f.text_area :body%><br>
+	<%=f.hidden_field :product_id,value:@product.id%>
+	<%= f.radio_button :rating,1%>*
+	<%= f.radio_button :rating,2%>**
+	<%= f.radio_button :rating,3%>***
+	<%= f.radio_button :rating,4%>****
+	<%= f.radio_button :rating,5%>*****<br>
+	<%= f.submit "Add Your Review"%>
+<%end%>
+<br>
+	<%= form_for Wishlist.new do |f|%>
+		<%= f.hidden_field :product_id,value:@product.id%>
+		<%= f.submit "add to wishlist"%>
+	<%end%>
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#application
+
+ <%if user_signed_in?%>
+        welcome  <%= current_user.username%>|
+         <%= link_to "your cart(#{current_user.cart_line_items.pluck(:quantity).inject(:+)})",cart_line_items_path%>|
+        <%=link_to "Account_setting",edit_user_registration_path%>|<%= link_to "wishlist(#{current_user.wishlists.count})",wishlists_path%> |
+        <%=link_to "logout",destroy_user_session_path,method: :delete%>|
+         <%= link_to "address",addresses_path%>|
+         <%= link_to "Reviews",reviews_path%>|
+      <%else%>
+        <%= link_to "Register",new_user_registration_path%> |
+        <%= link_to "login",new_user_session_path%>
+      <%end%>
+    	<%= link_to "Categories",categories_path %> |
+    	<%= link_to "Products",products_path %>|
+      <%= notice %>
+      <%if user_signed_in?%>
+        <p>your current ip address is (<%= current_user.current_sign_in_ip %>)</p>
+      <%end%>
+<%end%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#index
+
+<!-- <h1> the list of the products</h1> 
+<%# if @products.empty?%>
+	<p>product not found</p>
+<%#else%>
+	<ol>
+	<%# @products.each do |product| %>
+		<li> 
+		  <%#=link_to product.name, product_path(product.id)%>-
+		 INR - <%#=product.price%> -
+		 <%#= product.description%>-
+		 <%#= product.category.name%>
+		 <%#= form_for @cart_line_item do |f|%>
+		 	<%#= f.hidden_field :product_id,value:product.id%>
+		 	<%#= f.hidden_field :quantity,value:1%>
+		 	<%#= f.submit "add"%>
+		 <%#end%>
+		</li>
+	<%#end %>
+	</ol>
+<%#end%>
+<%#if (user_signed_in?)&& (can? :create,Product.new)%>
+	<%#= link_to "add products",new_product_path%>
+<%#end%> -->
+
+<%= form_for @cart_line_item do |f|%>
+				 		<%= f.hidden_field :product_id,value:product.id%>
+				 		<%= f.hidden_field :quantity,value:1%>
+				 		<%= f.submit "button"%>
+				 	<%end%>
+
+
+
+
+
+
+				 	var lastscroll = 0;
+	var i = 6;
+	var ajaxprocessing = false;
+	document.addEventListener("DOMContentLoaded", function(event) {
+		window.addEventListener('scroll',function(){
+			var currentposition = window.scrollY;
+			if(currentposition > lastscroll){
+				if(!ajaxprocessing){
+					if(window.scrollY  > window.innerHeight/ 2){
+			     		var xhr = new XMLHttpRequest();
+						xhr.open('GET',`/products/limited?value=${i}`,true);
+						xhr.onreadystatechange = function(){
+							if(xhr.readyState === 4 && xhr.status === 200){
+								var response = JSON.parse(xhr.responseText);
+								if(response["msg"] === "error"){
+									ajaxprocessing = true;								
+								}else{
+									response.forEach(function(data){	
+									$('product-card').append('<%#=escape_javascript render 'pagin'%>');
+								});
+									i = i + 6;
+								}		   
+							}
+						}	
+						xhr.send();				    
+			       	}
+			    }
+			}	
+			lastscroll = currentposition;
+		},false);
+	});
+
+
+
+<%=@value%>
+<script>
+var i = 6;
+function yHandler(){
+	var wrap = document.getElementById("product-card");
+	var contentHeight = wrap.offsetHeight;
+	var yOffset = window.pageYOffset;
+	var y = yOffset + window.innerHeight;
+	if(y >= contentHeight){	
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET',`/products/limited?value=${i}`,true);
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4 && xhr.status === 200){
+				var response = JSON.parse(xhr.responseText);
+				$.ajax({
+       					 url : "/products/index",
+        				type : "post",
+       					data : { data_value: JSON.stringify(response) }
+   					  });
+				$('#product-card').append('<%=escape_javascript render 'limited'%>')
+				i = i + 6;
+			}
+		};
+		xhr.send();
+	}
+}
+window.onscroll =  yHandler;
+</script>

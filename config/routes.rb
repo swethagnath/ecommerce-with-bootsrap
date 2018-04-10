@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
+  post '/rate' => 'rater#create', :as => 'rate'
+  post '/products/index'
+  get '/wishlists/check'
+  get '/categories/check_category'
+  get '/products/limited'
   resources :coupons
   resources :brands
   devise_for :users
   resources:reviews
   resources:cart_line_items
   resources:categories
-  resources:products
+  resources:products do 
+    member do 
+      get 'limited'
+    end
+  end
   resources:wishlists
   resources:addresses
   resources:orders

@@ -1,0 +1,108 @@
+body{
+	 padding-top: 50px;
+	 margin-bottom:63px; 
+}
+.card_product{
+	border:2px solid #FF7BAE;
+	color:#A43754;
+}
+.img-size{
+  height: 425px;
+  max-height: 425px;
+}
+.carousel{
+	padding-bottom:50px;
+}
+.dropdown-menu{
+	padding: 4px 43px;
+}
+.dropdown-divider{
+   border-top: 1px solid #B5354C;
+}
+.dropdown-menu a{
+	color:black;
+}
+footer{
+  z-index:10;
+   position: fixed;
+    height: 50px;
+    background-color: #f8f9fa;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+}
+.card-header{
+  background-color:#B5354C;
+}
+.card{
+  border:1px solid #DE2B31;
+}
+.category-background{
+  background-color: #A28FAB;
+}
+#cartline-table{
+  padding-top: 70px;
+}
+.cartline-padding{
+  padding-top:50px;
+}
+.ecommerce-div{
+  padding:20px;
+  border:4px solid black;
+}
+.list-group-item.active {
+  padding: 20px 83px;
+  color:black;
+  background-color:white;
+  border-color:black; 
+}
+.list-group-item.active:hover {
+  text-decoration: underline;
+}
+.product-sizing{
+  width:100%;
+}
+.new-product{
+  margin-top:60px;
+  padding-top:20px;
+  margin:100px auto;
+  width:40%;
+  border:3px solid black;
+}
+.errorMargin{
+  /*margin:0 20px 10px 20px;*/
+  /*padding:10px 40px 10px 40px;*/
+}
+.formError {
+  color: red;
+  border: 1px solid red;
+}
+.formSuccess{
+  color: green;
+  border: 1px solid green;  
+}
+.ecommerce-new-styling{
+  margin:100px auto;
+  width:40%;
+  border:2px solid black;
+  padding:60px;
+}
+.new-category-button{
+  margin-top:40px;
+}
+.ecommerce-account-setting{
+  margin:100px auto;
+  width:40%;
+  padding:20px 40px; 
+  border:3px solid black;
+}
+.add-category{
+  margin-bottom: 10px;
+  padding:20px;
+  border:1px solid black;
+}
+.add-category-h1{
+  margin-bottom: 17px;
+  margin-top: 30px;
+}

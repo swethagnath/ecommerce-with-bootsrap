@@ -1,0 +1,19 @@
+<div class="col-md-4" style="padding-bottom:15px">
+	<div class="card h-100 card_product">
+		<!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+		<%=image_tag(product.feature_image_url,size:"348x180")%>
+	  <div class="card-body">
+	    <!-- <h5 class="card-title"><%#= product.category.name%></h5> -->
+	    <h4 class="card-title"><%= product.name%></h4>
+	    <p class="card-text"><%= product.description%></p>
+	    <%= button_to "show more", product, :method => "get",class:"btn btn-primary text-center"%><br>
+	     <h5 class="card-title">$<%= product.price%></h5>
+	    <%if user_signed_in?%>
+          	<%= form_for(@wishlist,remote:true) do |f|%>
+	        	<%= f.hidden_field :product_id,value:product.id,id: :product_id%>
+	        	<%= f.submit "add to wishlist",class:"btn btn-success",id: :add_to_wishlist%><span id="wishlists"></span>
+    		<%end%>
+		<%end%>  
+	  </div>
+	</div>	
+</div>

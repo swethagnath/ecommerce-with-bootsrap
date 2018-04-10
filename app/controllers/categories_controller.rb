@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController	 
-	before_action :authenticate_user!,except: [:index,:show]
-	load_and_authorize_resource ##nvoke ability class
+	# before_action :authenticate_user!,except: [:index,:show]
+	# load_and_authorize_resource ##nvoke ability class
 	def index
 		@categories = Category.all
 	end
@@ -8,14 +8,14 @@ class CategoriesController < ApplicationController
 		@category = Category.new
 	end
 	def create
-		@category = Category.new(params[:category].permit(:name))
-		if @category.save
-			redirect_to categories_path,notice:"successfully created"
-		else
-			render action: 'new'
+		@category = Category.new(params[:category].permit(:name,))
+		@category.save
+		respond_to do |format|
+			format.js
 		end
 	end
-	def show
+	def show	
+		@wishlist = Wishlist.new
 		@category = Category.find(params[:id])
 	end
 	def edit
@@ -33,5 +33,9 @@ class CategoriesController < ApplicationController
 		@category = Category.find(params[:id])
 		@category.destroy
 		redirect_to categories_path
+	end
+	def check_category
+		@category = Category.find_by(name:params[:category])
+		render json: @category.nil? ? {error:true} : {error:false}
 	end
 end

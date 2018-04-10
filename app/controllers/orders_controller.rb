@@ -10,6 +10,6 @@ class OrdersController < ApplicationController
 	end
 	private
 	def order_params
-		params[:order].permit(:order_number,:order_date,:user_id,:address_id,:total)
+		params[:order].permit(:order_number,:order_date,:user_id,:address_id,:total,:is_delivere)
 	end
 end

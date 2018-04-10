@@ -1,24 +1,41 @@
-<h1>categories </h1>
-
-<%= @category.name%><br/>
-<%if (user_signed_in?)&&(can? :update,@category)%>
-<%= link_to "edit", edit_category_path(@category.id)%> | 
-<%if (user_signed_in?)&&(can? :destroy,@category)%>
-<%= link_to "delete",category_path(@category.id),method: :delete,data:{confirm:"are you sure you want to delete this #{@category.name}"}%>
-<%end%>
-<%end%>
-<h2>listing of products</h2>
-<ol>	
-		<%if @category.products.empty?%>
-			<h1>product not found</h1>
-			<%=link_to "add product", new_product_path%>
-		<%else%>
-			<% @category.products.each do |product|%>
-				<li>
-				<%= link_to product.name,product_path(product.id)%> 
-				<%= product.price%> <%= product.description%>
-				<%= product.stock%>
-				</li>
-			<%end%>
-		<%end%>	
-</ol>
+<div class="jumbotron jumbotron-fluid category-background">
+  <div class="container">
+    <h1 class="display-4 text-center"><%=@category.name.upcase%></h1>
+    <!-- <p class="lead text-center">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p> -->
+  </div>
+</div>
+<div class="container">
+	<%if (user_signed_in?)&&(can? :update,@category)%>
+	<%#=link_to "edit", edit_category_path(@category.id)%> 
+	<%if (user_signed_in?)&&(can? :destroy,@category)%>
+		<%#=#link_to "delete",category_path(@category.id),method: :delete,data:{confirm:"are you sure you want to delete this #{@category.name}"}%>
+		<%end%>
+	<%end%>
+	<%if @category.products.empty?%>
+		<h1>product not found</h1>
+		<%=link_to "add product", new_product_path%>
+	<%else%>
+		<div class="row">
+			<%@category.products.each do |product|%>
+				<div class="col-md-4 product_id" style="padding-bottom:25px">
+					<div class="card product_color"  style="width: 18rem;">
+					  <%=image_tag(product.feature_image_url,width:"100%")%>
+					  <div class="card-body">
+					    <h5 class="card-title"><%=product.name.upcase%> </h5>
+					    <p class="card-text"><%= product.description.truncate(15)%></p>
+					    <p class="card-text">$<%= product.price%></p>
+					    <p class="card-text">stock:<%= product.stock%></p>
+					   <%= button_to "show more", product, :method => "get",class:"btn btn-primary text-center"%>
+					   <%if user_signed_in?%>
+			              	<%= form_for(@wishlist,remote:true) do |f|%>
+			                	<%= f.hidden_field :product_id,value:product.id,id: :product_id%><br>
+			                	<%= f.submit "add to wishlist",class:"btn btn-success",id: :add_to_wishlist%><span id="wishlists"></span>
+		                	<%end%>
+                    	<%end%>
+					  </div>
+					</div>	
+				</div>			
+			<%end%>			
+		</div>
+	<%end%>	
+</div>

@@ -19,7 +19,7 @@ class Ability
         can :update,[Category,Product]
         can :destroy,Review 
     elsif user.role? "customer"
-        can :read,[Category,Product]
+        can :read,[Category,Product,CartLineItem]
         can [:read,:create],Review
         can [:update,:destroy],Review do |review|
             review.user_id == user.id

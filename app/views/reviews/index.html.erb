@@ -1,22 +1,27 @@
 <br>
-<h1>listing of reviews.....</h1>
-	<table border="1">
+<div class="jumbotron">
+  <h1 class="display-4 text-center">List Of Reviews</h1>
+</div>
+<div class="container reviews-table">
+	<table border="1" class="table">
 		<thead>
 			<tr>
 				<th>product name</th>
 				<th>review</th>
+				<th>rating</th>
 				<th>created at</th>
 			</tr>			
 		</thead>
 		<tbody>
-			
 			<%current_user.reviews.each do |review|%>	
 				<tr>			
-					<td><%= review.product.name%></td>
-					<td><%=review.body%></td>
-					<td><%= review.created_at%></td>
+					<td><%= link_to review.product.name,product_path(review.product)%></td>
+					<td><%=review.body%></div></td>
+					<td><%=review.rating%></td>
+					<td><%=review.created_at.strftime("%B %e, %Y at %I:%M %p")%></td>
 				</tr>
-			<%end%>
-			
+			<%end%>			
 		</tbody>
 	</table>
+</div>
+

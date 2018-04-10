@@ -1,0 +1,13 @@
+<%if @review.valid?%>
+	$.growl({ title: "Alert", message: "Thanks for adding the review" });
+	$('#reviewNotice').html('thankyou for adding the review');
+	setTimeout(function(){
+		$('#reviewNotice').slideUp();	
+	},3000)
+	$('#appending-reviews').append('<%=escape_javascript render 'review'%>');
+    $('#new_review')[0].reset();
+<%else%>
+	 $.growl.error({ message: "error in the form" });
+	$('#reviewError').html('<%=escape_javascript render 'error'%>');
+<%end%>
+		

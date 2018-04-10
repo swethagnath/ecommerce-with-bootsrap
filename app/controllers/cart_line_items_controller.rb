@@ -2,13 +2,16 @@ class CartLineItemsController < ApplicationController
 	def index
 		#cartLineItem.where('user_id =?',current_user.id)
 		@cart_line_items = current_user.cart_line_items #to find the cart line item for that
+		@cart_line_item = CartLineItem.new
 		#current logged in user 
 	end
 	def create 
 		@cart_line_item = CartLineItem.new(cart_line_item_params)
 		@cart_line_item.user_id = current_user.id
 		@cart_line_item.save_or_update
-		redirect_to cart_line_items_path	
+		respond_to do |format|
+			format.js
+		end	
 	end
 	def destroy
 		@cart_line_item = CartLineItem.find(params[:id])

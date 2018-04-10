@@ -3,29 +3,37 @@
   <head>
     <title>Ecommerce</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> --><!--slim version should not be used as some versions wont be available-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>    
+    <link rel="stylesheet"  href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/stylesheets/custom.css">   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/javascripts/jquery.growl.js"></script>
+    <link href="/stylesheets/jquery.growl.css" rel="stylesheet"/>
+    <script src="/javascripts/chosen.jquery.js"></script>   
+    <link rel="stylesheet" href="/stylesheets/chosen.css">    
+    <link rel="stylesheet" href="/stylesheets/custom.css">  
+    <script src="/javascripts/jquery.raty.js"></script>
+    <script src="/javascripts/ratyrate.js.erb"></script> 
   </head>
   <body>
-      <%if user_signed_in?%>
-        welcome  <%= current_user.username%>|
-         <%= link_to "your cart(#{current_user.cart_line_items.pluck(:quantity).inject(:+)})",cart_line_items_path%>|
-        <%=link_to "Account_setting",edit_user_registration_path%>|<%= link_to "wishlist(#{current_user.wishlists.count})",wishlists_path%> |
-        <%=link_to "logout",destroy_user_session_path,method: :delete%>|
-         <%= link_to "address",addresses_path%>|
-         <%= link_to "Reviews",reviews_path%>|
-      <%else%>
-        <%= link_to "Register",new_user_registration_path%> |
-        <%= link_to "login",new_user_session_path%>
-      <%end%>
-    	<%= link_to "Categories",categories_path %> |
-    	<%= link_to "Products",products_path %>|
-      <%= notice %>
-      <%= alert%>
-    	<%= yield %>
-      <%if user_signed_in?%>
-        <p>your current ip address is (<%= current_user.current_sign_in_ip %>)</p>
-      <%end%>
+    <%=render '/layouts/nav'%>
+    <%=yield%>
+    <footer class="page-footer font-small indigo pt-0">
+        <div class="footer-copyright py-3 text-center">
+            © 2018 Copyright:
+            <a href="https://mdbootstrap.com/material-design-for-bootstrap/">ecommerce</a>
+        </div>   
+    </footer>                  
   </body>
 </html>

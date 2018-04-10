@@ -1,26 +1,21 @@
 class BrandsController < ApplicationController
   before_action :set_brand, only: [:show, :edit, :update, :destroy]
-
   # GET /brands
   # GET /brands.json
   def index
     @brands = Brand.all
   end
-
   # GET /brands/1
   # GET /brands/1.json
   def show
   end
-
   # GET /brands/new
   def new
     @brand = Brand.new
   end
-
   # GET /brands/1/edit
   def edit
   end
-
   # POST /brands
   # POST /brands.json
   def create
@@ -36,7 +31,6 @@ class BrandsController < ApplicationController
       end
     end
   end
-
   # PATCH/PUT /brands/1
   # PATCH/PUT /brands/1.json
   def update
@@ -50,7 +44,6 @@ class BrandsController < ApplicationController
       end
     end
   end
-
   # DELETE /brands/1
   # DELETE /brands/1.json
   def destroy
@@ -60,7 +53,6 @@ class BrandsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_brand
